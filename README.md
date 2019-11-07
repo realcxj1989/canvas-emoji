@@ -59,3 +59,22 @@ function test() {
 
 console.log(test());
 ```
+
+### 参数
+
+| 参数      | 描述                                            | 类型   | 是否必须 |
+| --------- | ----------------------------------------------- | ------ | -------- |
+| text      | 可能含有 emoji 表情的字符串                     | string | 是       |
+| fillStyle | canvas 的 fillStyle                             | string | 是       |
+| font      | canvas 的 font                                  | string | 是       |
+| x         | Canvas 坐标 x                                   | number | 是       |
+| y         | Canvas 坐标 y                                   | number | 是       |
+| emojiW    | emoji 表情的宽度                                | number | 是       |
+| emojiH    | emoji 表情的高度                                | number | 是       |
+| length    | 如果字符太长后面会超过 length 大小的会用...表示 | number | 否       |
+
+### 返回
+
+| 字段 | 描述                   |
+| ---- | ---------------------- |
+| x    | 完成后的 Canvas 坐标 x |
