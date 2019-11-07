@@ -1,0 +1,31 @@
+{
+  "name": "canvas-emoji",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realcxj1989/canvas-emoji.git"
+  },
+  "keywords": [],
+  "author": "realcxj1989 <362377487@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/realcxj1989/canvas-emoji/issues"
+  },
+  "homepage": "https://github.com/realcxj1989/canvas-emoji#readme",
+  "dependencies": {
+    "canvas": "^2.6.0",
+    "node-emoji": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.6",
+    "tslib": "^1.9.0",
+    "tslint": "^5.0.0",
+    "tslint-config-egg": "^1.0.0",
+    "typescript": "^3.0.0"
+  }
+}
