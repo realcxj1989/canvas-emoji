@@ -23,12 +23,12 @@ class CanvasEmoji {
         });
         return {
             str,
-            emojiArr,
+            emojiArr
         };
     }
     drawPngReplaceEmoji(data) {
         const { canvasCtx } = this;
-        const { fillStyle, font, y, emojiW, emojiH, } = data;
+        const { fillStyle, font, y, emojiW, emojiH } = data;
         let { text, x, length } = data;
         canvasCtx.fillStyle = fillStyle;
         canvasCtx.font = font;
@@ -50,15 +50,15 @@ class CanvasEmoji {
             ctxText = canvasCtx.measureText(text.substring(0, index));
             x += ctxText.width;
             const emojiImg = new canvas_1.Image();
-            emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace('{', '').replace('}', '')}.png`));
+            emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace("{", "").replace("}", "")}.png`));
             canvasCtx.drawImage(emojiImg, x, y - emojiH, emojiW, emojiH);
             x += 36;
             text = text.substr(index + emojiItem.length);
             if (length !== -1) {
-                length -= (text.substring(0, index).length + 1);
+                length -= text.substring(0, index).length + 1;
                 if (length === 0) {
-                    canvasCtx.fillText('...', x, 1300);
-                    ctxText = canvasCtx.measureText('...');
+                    canvasCtx.fillText("...", x, 1300);
+                    ctxText = canvasCtx.measureText("...");
                     x += ctxText.width;
                     break;
                 }
@@ -76,7 +76,7 @@ class CanvasEmoji {
     }
     showText(text, length = 10) {
         if (text.length > length) {
-            return text.slice(0, length) + '...';
+            return text.slice(0, length) + "...";
         }
         else {
             return text;
