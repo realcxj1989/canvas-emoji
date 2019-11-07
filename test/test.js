@@ -1,6 +1,6 @@
 const { createCanvas } = require('canvas');
 const { CanvasEmoji } = require('../dist/index');
-const fs  = require('fs');
+const fs = require('fs');
 
 function test() {
   const canvas = createCanvas(800, 200);
@@ -15,7 +15,7 @@ function test() {
     emojiW: 36,
     emojiH: 36,
     length: 10,
-  })
+  });
   const out = fs.createWriteStream(__dirname + '/test.png');
   const stream = canvas.createPNGStream();
   stream.pipe(out);

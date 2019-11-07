@@ -1,25 +1,25 @@
-import { Image, CanvasRenderingContext2D } from 'canvas';
+import { Image, CanvasRenderingContext2D } from "canvas";
 // @ts-ignore
-import * as emoji from 'node-emoji';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as emoji from "node-emoji";
+import * as fs from "fs";
+import * as path from "path";
 
 export interface DrawPngReplaceEmojiParams {
-  text: string,
-  fillStyle: string,
-  font: string,
-  x: number,
-  y: number,
-  emojiW: number,
-  emojiH: number,
-  length?: number
+  text: string;
+  fillStyle: string;
+  font: string;
+  x: number;
+  y: number;
+  emojiW: number;
+  emojiH: number;
+  length?: number;
 }
 
 export class CanvasEmoji {
   private canvasCtx: CanvasRenderingContext2D;
 
   constructor(ctx: CanvasRenderingContext2D) {
-    this.canvasCtx = ctx
+    this.canvasCtx = ctx;
   }
 
   /**
@@ -46,7 +46,7 @@ export class CanvasEmoji {
     });
     return {
       str,
-      emojiArr,
+      emojiArr
     };
   }
 
@@ -56,13 +56,7 @@ export class CanvasEmoji {
    */
   drawPngReplaceEmoji(data: DrawPngReplaceEmojiParams) {
     const { canvasCtx } = this;
-    const {
-      fillStyle,
-      font,
-      y,
-      emojiW,
-      emojiH,
-    } = data;
+    const { fillStyle, font, y, emojiW, emojiH } = data;
     let { text, x, length } = data;
     canvasCtx.fillStyle = fillStyle;
     canvasCtx.font = font;
@@ -84,15 +78,20 @@ export class CanvasEmoji {
       ctxText = canvasCtx.measureText(text.substring(0, index));
       x += ctxText.width;
       const emojiImg = new Image();
-      emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace('{', '').replace('}', '')}.png`));
+      emojiImg.src = fs.readFileSync(
+        path.join(
+          __dirname,
+          `../emoji_pngs/${emojiItem.replace("{", "").replace("}", "")}.png`
+        )
+      );
       canvasCtx.drawImage(emojiImg, x, y - emojiH, emojiW, emojiH);
       x += 36;
       text = text.substr(index + emojiItem.length);
       if (length !== -1) {
-        length -= (text.substring(0, index).length + 1);
+        length -= text.substring(0, index).length + 1;
         if (length === 0) {
-          canvasCtx.fillText('...', x, 1300);
-          ctxText = canvasCtx.measureText('...');
+          canvasCtx.fillText("...", x, 1300);
+          ctxText = canvasCtx.measureText("...");
           x += ctxText.width;
           break;
         }
@@ -111,10 +110,9 @@ export class CanvasEmoji {
 
   private showText(text: string, length: number = 10) {
     if (text.length > length) {
-      return text.slice(0, length) + '...';
+      return text.slice(0, length) + "...";
     } else {
       return text;
     }
   }
-
 }

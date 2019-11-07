@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && node test/test"
+    "test": "npm run build && node test/test",
+    "format": "prettier --write '**/*.{ts,json,md}'",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.6",
+    "prettier": "^1.16.4",
     "tslib": "^1.9.0",
     "tslint": "^5.0.0",
     "tslint-config-egg": "^1.0.0",
