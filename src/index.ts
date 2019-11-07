@@ -84,7 +84,7 @@ export class CanvasEmoji {
           `../emoji_pngs/${emojiItem.replace("{", "").replace("}", "")}.png`
         )
       );
-      canvasCtx.drawImage(emojiImg, x, y - emojiH, emojiW, emojiH);
+      canvasCtx.drawImage(emojiImg, x, y - 5 / 6 * emojiH, emojiW, emojiH);
       x += 36;
       text = text.substr(index + emojiItem.length);
       if (length !== -1) {
