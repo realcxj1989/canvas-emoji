@@ -1,5 +1,5 @@
 const { createCanvas } = require('canvas');
-const { CanvasEmoji } = require('../dist/index');
+const { CanvasEmoji } = require('canvas-emoji');
 const fs = require('fs');
 
 function test() {
