@@ -53,7 +53,7 @@ class CanvasEmoji {
             const emojiImg = new canvas_1.Image();
             emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace("{", "").replace("}", "")}.png`));
             canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
-            x += 36;
+            x += emojiW;
             text = text.substr(index + emojiItem.length);
             i++;
             if (i === emojiArr.length) {
