@@ -66,6 +66,7 @@ export class CanvasEmoji {
       return `{${item.key}}`;
     });
     let ctxText;
+    let i = 0;
     for (const emojiItem of emojiArr) {
       const index = text.indexOf(emojiItem);
       if (length !== -1 && length - text.substring(0, index).length <= 0) {
@@ -87,10 +88,16 @@ export class CanvasEmoji {
       canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
       x += 36;
       text = text.substr(index + emojiItem.length);
+      i++;
+      if (i === emojiArr.length) {
+        canvasCtx.fillText(text, x, y);
+        ctxText = canvasCtx.measureText(text);
+        x += ctxText.width;
+      }
       if (length !== -1) {
         length -= text.substring(0, index).length + 1;
         if (length === 0) {
-          canvasCtx.fillText("...", x, 1300);
+          canvasCtx.fillText("...", x, y);
           ctxText = canvasCtx.measureText("...");
           x += ctxText.width;
           break;
