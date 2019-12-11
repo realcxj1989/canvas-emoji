@@ -6,12 +6,16 @@ import * as path from "path";
 
 export interface DrawPngReplaceEmojiParams {
   text: string;
-  fillStyle: string;
-  font: string;
+  color: string;
   x: number;
   y: number;
-  emojiW: number;
-  emojiH: number;
+  fontSize?: number;
+  fontFamily?: string;
+  fontStyle? : string;
+  fontVariant? : string;
+  fontWeight? : string;
+  textBaseline? : string;
+  textAlign? : string;
   length?: number;
 }
 
