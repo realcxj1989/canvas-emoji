@@ -1,16 +1,12 @@
 import { CanvasRenderingContext2D } from "canvas";
 export interface DrawPngReplaceEmojiParams {
     text: string;
-    color: string;
+    fillStyle: string;
+    font: string;
     x: number;
     y: number;
-    fontSize?: number;
-    fontFamily?: string;
-    fontStyle? : string;
-    fontVariant? : string;
-    fontWeight? : string;
-    textBaseline? : string;
-    textAlign? : string;
+    emojiW: number;
+    emojiH: number;
     length?: number;
 }
 export declare class CanvasEmoji {
