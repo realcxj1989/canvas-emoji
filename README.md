@@ -41,14 +41,12 @@ function test() {
   const canvasCtx = canvas.getContext("2d");
   const canvasEmoji = new CanvasEmoji(canvasCtx);
   const a = canvasEmoji.drawPngReplaceEmoji({
-    text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
-    fillStyle: "#000000",
-    font: "bold 36px Impact",
+    text: '测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃👉测试一下',
+    color: '#fff',
+    fontSize: 36,
+    ontFamily:'Impact',
     x: 0,
     y: 100,
-    emojiW: 36,
-    emojiH: 36,
-    length: 10
   });
   const out = fs.createWriteStream(__dirname + "/test.png");
   const stream = canvas.createPNGStream();
@@ -64,14 +62,18 @@ console.log(test());
 
 | 参数      | 描述                                            | 类型   | 是否必须 |
 | --------- | ----------------------------------------------- | ------ | -------- |
-| text      | 可能含有 emoji 表情的字符串                     | string | 是       |
-| fillStyle | canvas 的 fillStyle                             | string | 是       |
-| font      | canvas 的 font                                  | string | 是       |
+| text      | 可能含有 emoji 表情的字符串                        | string | 是       |
+| color     | canvas 的 fillStyle                             | string | 是       |
 | x         | Canvas 坐标 x                                   | number | 是       |
 | y         | Canvas 坐标 y                                   | number | 是       |
-| emojiW    | emoji 表情的宽度                                | number | 是       |
-| emojiH    | emoji 表情的高度                                | number | 是       |
-| length    | 如果字符太长后面会超过 length 大小的会用...表示 | number | 否       |
+| fontSize  | canvas 的text的 fontSize(单位：px，默认值：12)     | number | 否       |
+| fontFamily | canvas 的text的 fontFamily(默认值：Microsoft YaHei)     | string | 否       |
+| fontStyle | canvas 的text的 fontStyle(默认值：normal)         | string | 否       |
+| fontVariant | canvas 的text的 fontVariant(默认值：normal)         | string | 否       |
+| fontWeight | canvas 的text的 fontWeight(默认值：normal)         | string | 否       |
+| textBaseline | canvas 的 textBaseline(可选值：middle、top、bottom，默认值：middle)     | string | 否       |
+| textAlign | canvas 的 textAlign(可选值：center、left、right，默认值：left)         | string | 否       |
+| length    | 如果字符太长后面会超过 length 大小的会用...表示      | number | 否       |
 
 ### 返回
 
