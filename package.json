@@ -21,15 +21,15 @@
   },
   "homepage": "https://github.com/realcxj1989/canvas-emoji#readme",
   "dependencies": {
-    "canvas": "^2.6.0",
-    "node-emoji": "^1.10.0"
+    "canvas": "^2.9.3",
+    "node-emoji": "^1.11.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.6",
-    "prettier": "^1.16.4",
-    "tslib": "^1.9.0",
-    "tslint": "^5.0.0",
+    "@types/node": "^18.7.5",
+    "prettier": "^2.7.1",
+    "tslib": "^2.4.0",
+    "tslint": "^5.20.1",
     "tslint-config-egg": "^1.0.0",
-    "typescript": "^3.0.0"
+    "typescript": "^4.7.4"
   }
 }
