@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanvasEmoji = void 0;
 const canvas_1 = require("canvas");
 const emoji = require("node-emoji");
 const fs = require("fs");
@@ -28,44 +29,15 @@ class CanvasEmoji {
     }
     drawPngReplaceEmoji(data) {
         const { canvasCtx } = this;
-        const {
-            color,
-            fontSize = 12,
-            fontStyle = 'normal',
-            fontFamily = 'Microsoft YaHei',
-            fontVariant = 'normal',
-            fontWeight = 'normal',
-            textBaseline = 'middle',
-            textAlign = 'left'
-          } = data;
-        let { text, x, y, length } = data;
-        let otext = text;
-        canvasCtx.fillStyle = color;
-        canvasCtx.font = `${fontStyle} ${fontVariant} ${fontWeight} ${fontSize}px  ${fontFamily}`;
+        const { fillStyle, font, y, emojiW, emojiH } = data;
+        let { text, x, length } = data;
+        canvasCtx.fillStyle = fillStyle;
+        canvasCtx.font = font;
         const emojiArr = [];
         text = emoji.replace(text, (item) => {
             emojiArr.push(`{${item.key}}`);
             return `{${item.key}}`;
         });
-        if (textAlign === 'right' || textAlign === 'end' || textAlign === 'center') {
-            let wordText = emoji.replace(otext, (item) => '');
-            let w = canvasCtx.measureText(wordText).width;
-            w = w + 1.2 * emojiArr.length * fontSize;
-            if (textAlign === 'center') {
-                x = x - 0.5 * w;
-            } else {
-                x = x - w;
-            }
-        }
-        y = y - 0.15 * fontSize
-        switch (textBaseline) {
-            case 'middle':
-                y = y + 0.5 * fontSize
-                break;
-            case 'top':
-                y = y + fontSize
-                break;
-        }
         let ctxText;
         let i = 0;
         for (const emojiItem of emojiArr) {
@@ -81,8 +53,63 @@ class CanvasEmoji {
             x += ctxText.width;
             const emojiImg = new canvas_1.Image();
             emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace("{", "").replace("}", "")}.png`));
-            canvasCtx.drawImage(emojiImg, x + 0.05 * fontSize, y - 0.95 * fontSize, 1.1 * fontSize, 1.1 * fontSize);
-            x += 1.2 * fontSize
+            canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
+            x += emojiW;
+            text = text.substr(index + emojiItem.length);
+            i++;
+            if (i === emojiArr.length) {
+                canvasCtx.fillText(text, x, y);
+                ctxText = canvasCtx.measureText(text);
+                x += ctxText.width;
+            }
+            if (length !== -1) {
+                length -= text.substring(0, index).length + 1;
+                if (length === 0) {
+                    canvasCtx.fillText("...", x, y);
+                    ctxText = canvasCtx.measureText("...");
+                    x += ctxText.width;
+                    break;
+                }
+            }
+        }
+        if (emojiArr.length === 0) {
+            if (length) {
+                text = this.showText(text, length);
+            }
+            canvasCtx.fillText(text, x, y);
+            const ctxText = canvasCtx.measureText(text);
+            x += ctxText.width;
+        }
+        return { x };
+    }
+    async drawPngReplaceEmojiWithEmojicdn(data) {
+        const { canvasCtx } = this;
+        const { fillStyle, font, y, emojiW, emojiH, emojiStyle = 'google' } = data;
+        let { text, x, length } = data;
+        canvasCtx.fillStyle = fillStyle;
+        canvasCtx.font = font;
+        const emojiArr = [];
+        text = emoji.replace(text, (item) => {
+            emojiArr.push(`{${item.key}}`);
+            return `{${item.key}}`;
+        });
+        let ctxText;
+        let i = 0;
+        for (const emojiItem of emojiArr) {
+            const index = text.indexOf(emojiItem);
+            if (length !== -1 && length - text.substring(0, index).length <= 0) {
+                canvasCtx.fillText(`${text.substring(0, length)}...`, x, y);
+                ctxText = this.canvasCtx.measureText(`${text.substring(0, length)}...`);
+                x += ctxText.width;
+                break;
+            }
+            canvasCtx.fillText(text.substring(0, index), x, y);
+            ctxText = canvasCtx.measureText(text.substring(0, index));
+            x += ctxText.width;
+            const url = encodeURI(`https://emojicdn.elk.sh/${emojiItem.replace("{", "").replace("}", "")}?style=${emojiStyle}`);
+            const emojiImg = await canvas_1.loadImage(url);
+            canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
+            x += emojiW;
             text = text.substr(index + emojiItem.length);
             i++;
             if (i === emojiArr.length) {

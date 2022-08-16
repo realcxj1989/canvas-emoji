@@ -1,17 +1,14 @@
 import { CanvasRenderingContext2D } from "canvas";
 export interface DrawPngReplaceEmojiParams {
     text: string;
-    color: string;
+    fillStyle: string;
+    font: string;
     x: number;
     y: number;
-    fontSize?: number;
-    fontFamily?: string;
-    fontStyle? : string;
-    fontVariant? : string;
-    fontWeight? : string;
-    textBaseline? : string;
-    textAlign? : string;
+    emojiW: number;
+    emojiH: number;
     length?: number;
+    emojiStyle?: string;
 }
 export declare class CanvasEmoji {
     private canvasCtx;
@@ -24,5 +21,8 @@ export declare class CanvasEmoji {
     drawPngReplaceEmoji(data: DrawPngReplaceEmojiParams): {
         x: number;
     };
+    drawPngReplaceEmojiWithEmojicdn(data: DrawPngReplaceEmojiParams): Promise<{
+        x: number;
+    }>;
     private showText;
 }
