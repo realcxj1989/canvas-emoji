@@ -105,7 +105,7 @@ drawPngReplaceEmojiWithEmojicdn(data: DrawPngReplaceEmojiParams): Promise<{ x: n
 | length    | 如果字符太长后面会超过 length 大小的会用...表示                          | number | 否       |
 | emojiStyle    | emoji样式,only support drawPngReplaceEmojiWithEmojicdn() | string | 否       | google  |
 
-####Supported emojiStyle styles:
+### Supported emojiStyle styles:
 - apple
 - google
 - microsoft
