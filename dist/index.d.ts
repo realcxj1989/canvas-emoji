@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from 'canvas';
 export interface DrawPngReplaceEmojiParams {
     text: string;
     fillStyle: string;
