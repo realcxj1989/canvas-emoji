@@ -40,6 +40,7 @@ class CanvasEmoji {
         });
         let ctxText;
         let i = 0;
+        const emojiMap = new Map();
         for (const emojiItem of emojiArr) {
             const index = text.indexOf(emojiItem);
             if (length !== -1 && length - text.substring(0, index).length <= 0) {
@@ -52,7 +53,13 @@ class CanvasEmoji {
             ctxText = canvasCtx.measureText(text.substring(0, index));
             x += ctxText.width;
             const emojiImg = new canvas_1.Image();
-            emojiImg.src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiItem.replace('{', '').replace('}', '')}.png`));
+            const emojiName = emojiItem.replace('{', '').replace('}', '');
+            let src = emojiMap.get(emojiName);
+            if (!src) {
+                src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiName}.png`));
+                emojiMap.set(emojiName, src);
+            }
+            emojiImg.src = src;
             canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
             x += emojiW;
             text = text.substr(index + emojiItem.length);
@@ -111,7 +118,6 @@ class CanvasEmoji {
         await Promise.all(loadImages);
         for (let i = 0; i < emojiArr.length; i++) {
             const emojiItem = emojiArr[i];
-            console.log(emojiItem);
             const index = text.indexOf(emojiItem);
             if (length !== -1 && length - text.substring(0, index).length <= 0) {
                 canvasCtx.fillText(`${text.substring(0, length)}...`, x, y);
