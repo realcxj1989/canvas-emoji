@@ -46,5 +46,4 @@ async function drawPngReplaceEmojiWithEmojicdn() {
     return a;
 }
 
-console.log(drawPngReplaceEmoji());
 drawPngReplaceEmojiWithEmojicdn();

@@ -1,7 +1,7 @@
 import { CanvasRenderingContext2D, Image, loadImage } from 'canvas';
+import * as fs from 'fs';
 // @ts-ignore
 import * as emoji from 'node-emoji';
-import * as fs from 'fs';
 import * as path from 'path';
 
 export interface DrawPngReplaceEmojiParams {
@@ -31,6 +31,7 @@ export class CanvasEmoji {
     const emojiArr: string[] = [];
     emoji.replace(str, (item: any) => {
       emojiArr.push(`${item.key}`);
+      return item;
     });
     return emojiArr;
   }
@@ -47,7 +48,7 @@ export class CanvasEmoji {
     });
     return {
       str,
-      emojiArr,
+      emojiArr
     };
   }
 
@@ -88,7 +89,7 @@ export class CanvasEmoji {
           fs.existsSync(path.join(__dirname, `../emoji_pngs/${emojiName}.png`))
         ) {
           src = fs.readFileSync(
-            path.join(__dirname, `../emoji_pngs/${emojiName}.png`),
+            path.join(__dirname, `../emoji_pngs/${emojiName}.png`)
           );
           emojiMap.set(emojiName, src);
         }
