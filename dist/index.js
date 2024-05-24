@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CanvasEmoji = void 0;
 const canvas_1 = require("canvas");
-const emoji = require("node-emoji");
 const fs = require("fs");
+const emoji = require("node-emoji");
 const path = require("path");
 class CanvasEmoji {
     constructor(ctx) {
@@ -13,6 +13,7 @@ class CanvasEmoji {
         const emojiArr = [];
         emoji.replace(str, (item) => {
             emojiArr.push(`${item.key}`);
+            return item;
         });
         return emojiArr;
     }
@@ -24,7 +25,7 @@ class CanvasEmoji {
         });
         return {
             str,
-            emojiArr,
+            emojiArr
         };
     }
     drawPngReplaceEmoji(data) {
@@ -112,7 +113,9 @@ class CanvasEmoji {
                 .replace('{', '')
                 .replace('}', '')}?style=${emojiStyle}`);
             const emojiImg = await (0, canvas_1.loadImage)(url);
+            console.log(emojiImg);
             emojiMap.set(emojiItem, emojiImg);
+            console.log(emojiImg);
         };
         for (const emojiItem of emojiArr) {
             if (emojiSet.has(emojiItem)) {
